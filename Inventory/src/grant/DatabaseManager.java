@@ -8,34 +8,33 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
 	private Connection connection;
-	private ResultSet resultSet;
+	private static ResultSet resultSet;
 	private Statement statement;
+	
+	private final String username = "root";
+	private final String password = "gSQLh1116!";
 
-	public DatabaseManager() {
-		
-	}
-
-	public void readDataBase() throws Exception {
+	public DatabaseManager() throws Exception {
 		try {
-			// This will load the MySQL driver, each DB has its own driver
 			Class.forName("com.mysql.jdbc.Driver");
 			// Setup the connection with the DB
 			connection = DriverManager
-					.getConnection("jdbc:mysql://localhost/inventory" + "user=root&password=gSQLh1116!");
+					.getConnection("jdbc:mysql://localhost:3306/inventory", username, password);
+			statement = connection.createStatement();
 			System.out.println("successful");
-
 		} catch (Exception e) {
 			throw e;
-		}
+		
+	}
 
 	}
-	public void getAllQuery(String query) {
+	public ResultSet getAllQuery() {
 		try {
 			resultSet = statement.executeQuery("select * from inventory");
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		
+		return resultSet;
 	}
 	public void writeMetaData(ResultSet resultSet) throws SQLException {
         //  Now get some metadata from the database
@@ -47,6 +46,7 @@ public class DatabaseManager {
         for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
             System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
         }
+        
     }
 
     public void writeResultSet(ResultSet resultSet) throws SQLException {
@@ -56,15 +56,29 @@ public class DatabaseManager {
             // also possible to get the columns via the column number
             // which starts at 1
             // e.g. resultSet.getSTring(2);
-            String user = resultSet.getString("myuser");
-            String website = resultSet.getString("webpage");
-            String summary = resultSet.getString("summary");
-            String comment = resultSet.getString("comments");
-            System.out.println("User: " + user);
-            System.out.println("Website: " + website);
-            System.out.println("summary: " + summary);
-
-            System.out.println("Comment: " + comment);
+        	int ProductID = 1;
+            ProductID = resultSet.getInt(ProductID);
+            
+            String ProductName = resultSet.getString("ProductName");
+            
+            String Price = resultSet.getString("Price");
+            
+            int Quantity = 1;
+            Quantity = resultSet.getInt(Quantity);
+            
+            String Description = resultSet.getString("Description");
+            
+            String Category = resultSet.getString("Category");
+            
+            String DateAdded = resultSet.getString("DateAdded");
+            
+            System.out.println("ProductID: " + ProductID);
+            System.out.println("ProductName: " + ProductName);
+            System.out.println("Price: " + Price);
+            System.out.println("Quantity:" + Quantity);
+            System.out.println("Description: " + Description);
+            System.out.println("Category:" + Category);
+            System.out.println("DateAdded:" + DateAdded);
         }
     }
 
@@ -84,6 +98,12 @@ public class DatabaseManager {
 		} catch (Exception e) {
 
 		}
+	}
+	public static void main(String[] args) throws Exception {
+		DatabaseManager dbman = new DatabaseManager();
+		dbman.getAllQuery();
+		dbman.writeMetaData(resultSet);
+		dbman.writeResultSet(resultSet);
 	}
 
 }
