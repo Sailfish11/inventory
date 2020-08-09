@@ -17,7 +17,10 @@ public class InventoryFrame extends JFrame{
 	private JPanel p  = new JPanel();
 	private final JButton getAll = new JButton("Get All");
 	private final JButton add = new JButton("Add");
-	ResultSet rs;// = dbman.getAllQuery();
+	private final JButton delete = new JButton("Delete");
+	private final JButton edit = new JButton("Edit");
+	
+	ResultSet rs;
 	
 	public InventoryFrame() throws Exception {
 		// TODO Auto-generated constructor stub
@@ -41,6 +44,7 @@ public class InventoryFrame extends JFrame{
 					rs = dbman.getAllQuery();
 				}
 				InventoryTableModel itm = new InventoryTableModel(rs);
+				
 				JTable jt = new JTable(itm);
 				
 				JScrollPane sp = new JScrollPane(jt);
@@ -63,16 +67,31 @@ public class InventoryFrame extends JFrame{
 					AddDialog ad = new AddDialog(frame, "Add");
 					ad.readText();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				pack();
-				
+				setSize(800,500);
+				doLayout();
+			}			
+		});
+		p.add(delete, BorderLayout.LINE_START);
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					InventoryFrame frame2 = new InventoryFrame();
+					DeleteDialog dd = new DeleteDialog(frame2, "Delete");
+					dd.Dialog2();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				pack();
+				setSize(800,500);
+				doLayout();
 			}
 			
 		});
 	}
-	
-
-
 }
+

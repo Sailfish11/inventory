@@ -53,4 +53,16 @@ public class InventoryTableModel extends AbstractTableModel {
 		}
 		return null;
 	}
+	public boolean isCellEditable(int row, int col) {
+		return true;
+	}
+	public String getColumnName(int col) {
+		try {
+			return rset.getMetaData().getColumnName(col+1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 }

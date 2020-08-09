@@ -57,6 +57,17 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}
+	public void delete(int pid) {
+		try {
+			String query = "DELETE FROM `INVENTORY` WHERE `PRODUCTID` = ?";
+			pstatement = connection.prepareStatement(query);
+			pstatement.setInt(1, pid);
+			
+			pstatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void writeMetaData(ResultSet resultSet) throws SQLException {
         //  Now get some metadata from the database
         // Result set get the result of the SQL query
