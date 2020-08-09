@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
 public class DatabaseManager {
 	private Connection connection;
 	private static ResultSet resultSet;
 	private Statement statement;
+	private PreparedStatement pstatement;
 	
 	private final String username = "root";
 	private final String password = "gSQLh1116!";
@@ -35,6 +38,24 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return resultSet;
+	}
+	public void add(String pn, String pr, int q, String de, String c, String da) {
+		try {
+			String query = "INSERT INTO inventory (ProductName, Price, Quantity, Description, Category, DateAdded)" + 
+			" values (?,?,?,?,?,?)";
+			pstatement = connection.prepareStatement(query);
+			pstatement.setString(1, pn);
+			pstatement.setString(2,  pr);
+			pstatement.setInt(3, q);
+			pstatement.setString(4, de);
+			pstatement.setString(5, c);
+			pstatement.setString(6, da);
+			
+			pstatement.execute();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public void writeMetaData(ResultSet resultSet) throws SQLException {
         //  Now get some metadata from the database

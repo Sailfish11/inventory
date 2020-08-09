@@ -9,6 +9,7 @@ public class InventoryTableModel extends AbstractTableModel {
 	private ResultSet rset;
 	private int rowCount = 0;
 	private int columnCnt=0;
+	private String columnName = "";
 	public InventoryTableModel(ResultSet rs){
 		// TODO Auto-generated constructor stub
 		rset = rs;
@@ -18,6 +19,7 @@ public class InventoryTableModel extends AbstractTableModel {
 				rowCount = rset.getRow();
 			}
 			columnCnt = rset.getMetaData().getColumnCount();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -27,7 +29,6 @@ public class InventoryTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
 		return columnCnt;
 	}
 
