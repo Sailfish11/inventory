@@ -24,7 +24,7 @@ public class DatabaseManager {
 			connection = DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/inventory", username, password);
 			statement = connection.createStatement();
-			System.out.println("successful");
+			System.out.println("Successfully Connected");
 		} catch (Exception e) {
 			throw e;
 		
@@ -63,6 +63,24 @@ public class DatabaseManager {
 			pstatement = connection.prepareStatement(query);
 			pstatement.setInt(1, pid);
 			
+			pstatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void edit(int pid, String colName, String newName) {
+		try {
+			String query = "UPDATE INVENTORY "
+					+ "SET "+colName+ "= ?"
+					+ " WHERE PRODUCTID = ?";
+			pstatement = connection.prepareStatement(query);
+			if (colName.equals("Quantity")) {
+				int q = Integer.parseInt(newName);
+				pstatement.setInt(1, q);
+			} else {
+				pstatement.setString(1, newName);
+				pstatement.setInt(2, pid);
+			}
 			pstatement.execute();
 		} catch (Exception e) {
 			e.printStackTrace();

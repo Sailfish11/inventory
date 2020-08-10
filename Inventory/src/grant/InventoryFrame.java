@@ -26,7 +26,7 @@ public class InventoryFrame extends JFrame{
 		// TODO Auto-generated constructor stub
 		super();
 		setTitle("Inventory");
-		setSize(800,500);
+		setSize(800,600);
 		p.setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -35,7 +35,6 @@ public class InventoryFrame extends JFrame{
 		getContentPane().add(p);
 		p.add(getAll, BorderLayout.NORTH);
 		dbman = new DatabaseManager();
-		
 		
 		getAll.addActionListener(new ActionListener() {
 			@Override
@@ -49,10 +48,8 @@ public class InventoryFrame extends JFrame{
 				
 				JScrollPane sp = new JScrollPane(jt);
 				p.add(sp, BorderLayout.CENTER);
-				//add(jt, BorderLayout.CENTER);
-				//getContentPane().revalidate();
 				pack();
-				setSize(800,500);
+				setSize(800,600);
 				doLayout();
 				
 			}
@@ -70,7 +67,7 @@ public class InventoryFrame extends JFrame{
 					e.printStackTrace();
 				}
 				pack();
-				setSize(800,500);
+				setSize(800,600);
 				doLayout();
 			}			
 		});
@@ -87,8 +84,25 @@ public class InventoryFrame extends JFrame{
 					e.printStackTrace();
 				}
 				pack();
-				setSize(800,500);
+				setSize(800,600);
 				doLayout();
+			}
+		});
+		p.add(edit, BorderLayout.LINE_END);
+		edit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					InventoryFrame frame3 = new InventoryFrame();
+					EditDialog ed = new EditDialog(frame3, "Edit");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				pack();
+				setSize(800,600);
+				doLayout();
+				
 			}
 			
 		});

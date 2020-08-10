@@ -58,7 +58,15 @@ public class InventoryTableModel extends AbstractTableModel {
 	}
 	public String getColumnName(int col) {
 		try {
-			return rset.getMetaData().getColumnName(col+1);
+			String colName = rset.getMetaData().getColumnName(col+1);
+			if (colName.equals("ProductID")) {
+				return "Product ID";
+			} else if (colName.equals("ProductName")){
+				return "Product Name";
+			} else if (colName.equals("DateAdded")) {
+				return "Date Added";
+			}
+			return colName;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
