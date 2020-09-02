@@ -77,11 +77,49 @@ public class DatabaseManager {
 			if (colName.equals("Quantity")) {
 				int q = Integer.parseInt(newName);
 				pstatement.setInt(1, q);
+				pstatement.setInt(2,  pid);
 			} else {
 				pstatement.setString(1, newName);
 				pstatement.setInt(2, pid);
 			}
 			pstatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void update(int col, String input, int productID) {
+		String colName = "";
+		if (col == 1) {
+			colName = "ProductName";
+		} else if (col == 2) {
+			colName = "Price";
+		} else if (col == 3) {
+			colName = "Quantity";
+		} else if (col == 4) {
+			colName = "Description";
+		} else if (col == 5) {
+			colName = "Category";
+		} else if (col == 6) {
+			colName = "DateAdded";
+		}
+		try {
+			String query = "UPDATE INVENTORY "
+					+ "SET "+colName+ " = ?"
+					+ " WHERE PRODUCTID = ?";
+			pstatement = connection.prepareStatement(query);
+			if (col == 3) {
+				int input2 = Integer.parseInt(input);
+				pstatement.setInt(1, input2);
+				pstatement.setInt(2, productID);
+			} else {
+				pstatement.setString(1, input);
+				pstatement.setInt(2, productID);
+			}
+			System.out.println("input: " +input);
+			pstatement.execute();
+			System.out.println(pstatement);
+			/*resultSet = getAllQuery();
+			writeResultSet(resultSet);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,7 +132,7 @@ public class DatabaseManager {
 
         System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
         for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
-            System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
+            System.out.println("Column " +i  + ": "+ resultSet.getMetaData().getColumnName(i));
         }
         
     }
@@ -122,13 +160,13 @@ public class DatabaseManager {
             
             String DateAdded = resultSet.getString("DateAdded");
             
-            System.out.println("ProductID: " + ProductID);
-            System.out.println("ProductName: " + ProductName);
+            System.out.println("Product ID: " + ProductID);
+            System.out.println("Product Name: " + ProductName);
             System.out.println("Price: " + Price);
-            System.out.println("Quantity:" + Quantity);
+            System.out.println("Quantity: " + Quantity);
             System.out.println("Description: " + Description);
-            System.out.println("Category:" + Category);
-            System.out.println("DateAdded:" + DateAdded);
+            System.out.println("Category: " + Category);
+            System.out.println("Date Added: " + DateAdded);
         }
     }
 
