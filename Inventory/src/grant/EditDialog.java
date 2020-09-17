@@ -13,10 +13,10 @@ public class EditDialog extends JDialog{
 		super(f, title);
 		DatabaseManager dbman = new DatabaseManager();
 		
-		Object[] choices = {"Product Name", "Price", "Quantity", "Description", "Category", "Date Added"};
+		Object[] choices = {"ProductName", "Price", "Quantity", "Description", "Category", "DateAdded"};
 		String s = (String)JOptionPane.showInputDialog(
                 p,
-                "Choose which attribute\n"
+                "Choose which attribute "
                 + "you want to edit:",
                 "Choose",
                 JOptionPane.PLAIN_MESSAGE,

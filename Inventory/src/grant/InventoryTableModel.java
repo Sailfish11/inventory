@@ -93,12 +93,12 @@ public class InventoryTableModel extends AbstractTableModel {
 		 */
 		// value = val;
 		// System.out.println("test");
-		System.out.println("setValueAt: " + val);
+		//System.out.println("setValueAt: " + val);
 		DatabaseManager dbman;
 		try {
 			dbman = new DatabaseManager();
 			String input = val.toString();
-			System.out.println(col + " " + input);
+			//System.out.println(col + " " + input);
 			Object ProductID = getValueAt(row, 0);
 			dbman.update(col, input, (int) ProductID);
 			rset = dbman.getAllQuery();

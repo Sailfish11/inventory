@@ -133,8 +133,8 @@ public class InventoryFrame extends JFrame{
 			//System.out.println("editing...");
 			InventoryTableModel model = (InventoryTableModel) ((TableModel) e.getSource());
 			
-			int row = jt.getSelectedRow();
-			int column = jt.getSelectedColumn();
+			//int row = jt.getSelectedRow();
+			//int column = jt.getSelectedColumn();
 			
 			//String input = (String) jt.getValueAt(row, column);
 			//dbman.update(column, input);

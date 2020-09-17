@@ -115,7 +115,7 @@ public class DatabaseManager {
 				pstatement.setString(1, input);
 				pstatement.setInt(2, productID);
 			}
-			System.out.println("input: " +input);
+			//System.out.println("input: " +input);
 			pstatement.execute();
 			System.out.println(pstatement);
 			/*resultSet = getAllQuery();
@@ -170,23 +170,6 @@ public class DatabaseManager {
         }
     }
 
-	private void close() {
-		try {
-			if (resultSet != null) {
-				resultSet.close();
-			}
-
-			if (statement != null) {
-				statement.close();
-			}
-
-			if (connection != null) {
-				connection.close();
-			}
-		} catch (Exception e) {
-
-		}
-	}
 	public static void main(String[] args) throws Exception {
 		DatabaseManager dbman = new DatabaseManager();
 		dbman.getAllQuery();
